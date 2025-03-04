@@ -1,0 +1,20 @@
+[Unit]
+Description=Monitor Charger and Change Refresh Rate
+After=graphical.target
+Wants=graphical.target
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/sleep 5
+ExecStartPre=/usr/bin/xhost +SI:localuser:michael
+ExecStart=/bin/bash -c 'DISPLAY=:0 /usr/local/bin/monitor.sh'
+Restart=always
+User=michael
+Environment=DISPLAY=:0
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=monitor-charger
+
+[Install]
+WantedBy=default.target
+
